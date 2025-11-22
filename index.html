@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For My Girlfriend</title>
+
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌹</text></svg>">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Pacifico&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Lato', sans-serif;
+            background: linear-gradient(135deg, #f5f3ff 0%, #ede9fe 100%);
+            overflow-x: hidden;
+        }
+        
+        h1 {
+            font-family: 'Pacifico', cursive;
+        }
+
+        .heart {
+            position: fixed;
+            font-size: 20px;
+            color: #c4b5fd;
+            opacity: 0.6;
+            animation: float 10s linear infinite;
+            z-index: 1;
+            top: -10vh;
+        }
+        
+        @keyframes float {
+            0% { transform: translate(0, 0) rotate(0deg); opacity: 0.6; }
+            100% { transform: translate(100vw, 100vh) rotate(360deg); opacity: 0; }
+        }
+    </style>
+</head>
+<body class="flex items-center justify-center min-h-screen p-4">
+
+    <div id="main-container" class="relative bg-white p-6 sm:p-10 rounded-3xl shadow-2xl max-w-md w-full text-center z-10 transition-all duration-500 border border-violet-100">
+        
+        <h1 class="text-3xl sm:text-5xl font-bold text-violet-600 mb-6 drop-shadow-sm">Reasons I Love My Vaikhari</h1>
+        
+        <div id="image-container" class="hidden mb-6 relative group">
+            <img id="reason-image" 
+                 src="" 
+                 alt="Reason Memory" 
+                 class="relative w-auto max-w-full h-auto max-h-[60vh] mx-auto rounded-xl shadow-md border-2 border-white transition-transform duration-500 transform hover:scale-[1.02]"
+                 onerror="this.onerror=null; this.src='https://placehold.co/600x400/E6E6FA/4C1D95?text=Image+Not+Found';">
+        </div>
+
+        <div id="message-box" class="bg-violet-50 min-h-[100px] flex items-center justify-center p-4 rounded-2xl mb-8 border border-violet-100 shadow-inner">
+            <p class="text-lg sm:text-xl text-violet-800 font-medium leading-relaxed">Click the button to start... 💜</p>
+        </div>
+
+        <button id="reveal-button" class="w-full bg-gradient-to-r from-violet-500 to-purple-500 text-white font-bold text-lg py-4 px-6 rounded-full shadow-lg transition-all duration-300 ease-in-out
+                                       hover:from-violet-600 hover:to-purple-600 hover:shadow-violet-300/50 hover:shadow-xl hover:-translate-y-1
+                                       active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed disabled:shadow-none">
+            Click Me
+        </button>
+
+        <div id="final-container" class="hidden mt-8 space-y-4 animate-fade-in">
+            <img id="final-photo" 
+                 src="assets/images/us.jpg" 
+                 alt="Us" 
+                 class="w-auto max-w-full h-auto mx-auto rounded-xl shadow-lg border-4 border-violet-200"
+                 onerror="this.onerror=null; this.src='https://placehold.co/600x800/E6E6FA/4C1D95?text=Us+Forever';">
+        </div>
+    </div>
+
+    <script>
+        const reasons = [
+            { 
+                message: "The way you smile when you're truly happy.", 
+                image: "assets/images/smile.jpg" 
+            },    
+            { 
+                message: "Your goofiness that always makes me laugh.", 
+                image: "assets/images/goof.jpg" 
+            },
+            { 
+                message: "Your eyes (joking, but they are beautiful!).", 
+                image: "assets/images/eyes_joke.jpg" 
+            },
+            { 
+                message: "Your innocent and pure heart.", 
+                image: "assets/images/innocence.jpg" 
+            },
+            { 
+                message: "How beautiful you are without even trying.", 
+                image: "assets/images/beaut.jpg" 
+            },
+            { 
+                message: "That you always know how to cheer me up.", 
+                image: "assets/images/goofy.jpg" 
+            },
+            { 
+                message: "Your singing!", 
+                image: "assets/images/singing.jpg" 
+            },
+            { 
+                message: "Your feet!!", 
+                image: "assets/images/feet.jpg" 
+            },
+            { 
+                message: "That you’re so breathtaking, and somehow I’m the lucky one who gets you.", 
+                image: "assets/images/breath.jpg" 
+            }
+        ];
+
+        const finalMessage = "Happy Birthday Vaikhari! I love you so much. ❤️";
+
+        let currentIndex = 0;
+        const messageBox = document.getElementById("message-box");
+        const revealButton = document.getElementById("reveal-button");
+        const imageContainer = document.getElementById("image-container");
+        const reasonImage = document.getElementById("reason-image");
+        const finalContainer = document.getElementById("final-container");
+
+        function revealReason() {
+            if (currentIndex < reasons.length) {
+                const currentReason = reasons[currentIndex];
+                
+                messageBox.innerHTML = `<p class="text-lg sm:text-xl text-violet-900 font-medium animate-pulse-once">${currentReason.message}</p>`;
+                
+                reasonImage.src = currentReason.image;
+                imageContainer.classList.remove("hidden");
+                
+                currentIndex++;
+            } else {
+                imageContainer.classList.add("hidden");
+                messageBox.innerHTML = `<h2 class="text-2xl sm:text-3xl font-bold text-violet-700">${finalMessage}</h2>`;
+                messageBox.style.backgroundColor = "#ede9fe";
+                
+                finalContainer.classList.remove("hidden");
+                
+                revealButton.innerText = "Forever & Always";
+                revealButton.disabled = true;
+            }
+        }
+
+        revealButton.addEventListener("click", revealReason);
+
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.innerHTML = '💜'; 
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.fontSize = (Math.random() * 20 + 10) + 'px';
+            heart.style.animationDuration = (Math.random() * 3 + 4) + 's';
+            
+            document.body.appendChild(heart);
+            setTimeout(() => { heart.remove(); }, 7000);
+        }
+        setInterval(createHeart, 600);
+    </script>
+</body>
+</html>
